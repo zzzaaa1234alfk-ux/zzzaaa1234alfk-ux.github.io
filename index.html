@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAGKEY</title>
+<style>
+body{background:#0a0000;color:#fff;margin:0;padding:15px;font-family:Arial}
+.card{background:#1a0505;border:1px solid #551111;border-radius:15px;padding:15px;margin-top:15px}
+.btn{background:#ff2222;border:none;color:#fff;width:100%;padding:16px;border-radius:10px;font-size:19px;font-weight:900;cursor:pointer}
+.btn2{background:transparent;border:1px solid #661111;color:#ff7777;width:100%;padding:14px;border-radius:10px;margin-top:10px;font-size:16px;cursor:pointer}
+input{width:100%;background:#120000;border:1px solid #661111;color:#fff;padding:14px;border-radius:10px;font-size:18px}
+.terminal{background:#000;border:1px solid #330000;padding:12px;color:#ff5555;min-height:120px;font-family:monospace;text-align:left;direction:ltr;white-space:pre-wrap}
+.progress{height:10px;background:#330000;border-radius:10px;overflow:hidden;margin:15px 0}
+.progress i{display:block;height:100%;background:red;width:0%}
+.threat{font-size:30px;text-align:center;color:red;font-weight:900}
+.count{font-size:40px;text-align:center;color:red;font-weight:900}
+.file{background:#120000;border:1px solid #441111;padding:12px;border-radius:10px;margin-top:8px;cursor:pointer;width:100%;color:#fff;text-align:right}
+.pass-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pass{background:#120000;border:1px solid #441111;border-radius:10px;padding:12px;text-align:center}
+</style>
+</head>
+<body>
+<h1 style="text-align:center;font-size:50px;text-shadow:0 0 20px red">HAGKEY</h1>
+<p style="text-align:center">SCP SITE 81 - دوس START وهيشتغل</p>
+
+<div class="card">
+<div style="display:flex;justify-content:space-between;color:#ff4444;font-weight:bold"><span>THREAT</span><span id="threatTxt">LEVEL 1 - SAFE</span></div>
+<div class="threat" id="threatBig">SAFE</div>
+</div>
+
+<div class="card">
+<div class="count" id="countdown">05:00</div>
+</div>
+
+<div class="card">
+<p>SIMULATION TARGET</p>
+<input id="target" placeholder="رقم الضحيه">
+<br><br>
+<!-- الزرار هنا فيه الكود جواه على طول -->
+<button class="btn" onclick="startSim()">START SIMULATION ▶</button>
+<button class="btn2" onclick="resetSim()">RESET SYSTEM ↻</button>
+</div>
+
+<div class="card">
+<div class="terminal" id="term">SCP SYSTEM READY
+دوس START عشان تبدأ...
+لو شايف الرسالة دي يبقى الصفحة فتحت صح</div>
+</div>
+
+<div class="card">
+<div style="display:flex;justify-content:space-between;color:#ff4444"><span>PROGRESS</span><span id="pct">0%</span></div>
+<div class="progress"><i id="prog"></i></div>
+</div>
+
+<div class="card">
+<button class="file" onclick="document.getElementById( fileBox ).textContent= SCP-173 - التمثال - EUCLID - بيتحرك لما تغمض عينك ">SCP-173 - التمثال ▶</button>
+<button class="file" onclick="document.getElementById( fileBox ).textContent= SCP-096 - الرجل الخجول - EUCLID - اوعى تشوف وشه ">SCP-096 - الرجل الخجول ▶</button>
+<button class="file" onclick="document.getElementById( fileBox ).textContent= SCP-049 - دكتور الطاعون - EUCLID - بيعالجك بانه يقتلك ">SCP-049 - دكتور الطاعون ▶</button>
+<div class="terminal" id="fileBox" style="min-height:60px;margin-top:10px">دوس على اي ملف...</div>
+</div>
+
+<div class="card">
+<div style="display:flex;justify-content:space-between;color:#ff4444"><span>PASSWORDS</span><span id="passTxt">LOCKED</span></div>
+<div class="pass-grid" style="margin-top:10px">
+<div class="pass"><small>ADMIN</small><br><b id="p1">*****</b></div>
+<div class="pass"><small>SECURITY</small><br><b id="p2">*****</b></div>
+</div>
+</div>
+
+<div class="card">
+<button class="btn2" onclick="playSound()">🚨 تشغيل الصوت</button>
+<button class="btn2" onclick="alert( الزرار شغال 100% - المشكلة كانت في النسخ )">✅ جربني - هل انا شغال؟</button>
+</div>
+
+<script>
+var myInterval = null;
+var myCount = null;
+var myAudio = null;
+
+function playSound(){
+  try{
+    if(!myAudio){ myAudio = new (window.AudioContext || window.webkitAudioContext)(); }
+    if(myAudio.state ===  suspended ){ myAudio.resume(); }
+    for(var i=0;i<10;i++){
+      var o = myAudio.createOscillator();
+      var g = myAudio.createGain();
+      o.connect(g); g.connect(myAudio.destination);
+      o.type =  sawtooth ;
+      var t = myAudio.currentTime + i*2.2;
+      o.frequency.setValueAtTime(220, t);
+      o.frequency.linearRampToValueAtTime(440, t+1);
+      o.frequency.linearRampToValueAtTime(220, t+2.1);
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.18, t+0.3);
+      g.gain.exponentialRampToValueAtTime(0.0001, t+2.1);
+      o.start(t); o.stop(t+2.1);
+    }
+    document.getElementById( term ).textContent += "\n> ALARM PLAYING...";
+  }catch(e){ alert("الصوت: " + e); }
+}
+
+function startSim(){
+  alert("START اتداس! الكود شغال");
+  playSound();
+  var p = 0;
+  var sec = 300;
+  clearInterval(myInterval); clearInterval(myCount);
+  var term = document.getElementById( term );
+  var n = document.getElementById( target ).value || "رقم الضحيه";
+  term.textContent = "TARGET: " + n + "\nStarting...";
+  myCount = setInterval(function(){
+    sec--;
+    var m = Math.floor(sec/60); var s = sec%60;
+    document.getElementById( countdown ).textContent = "0"+m+":"+(s<10?"0"+s:s);
+    if(sec<=0) clearInterval(myCount);
+  },1000);
+  myInterval = setInterval(function(){
+    p++;
+    if(p>=100){
+      p=100; clearInterval(myInterval);
+      term.textContent += "\n> COMPLETE - FAKE FOR FUN";
+      document.getElementById( p1 ).textContent = "HAGKEY-8812";
+      document.getElementById( p2 ).textContent = "SCP-81-LOCK";
+      document.getElementById( passTxt ).textContent = "HACKED";
+    }
+    document.getElementById( prog ).style.width = p + "%";
+    document.getElementById( pct ).textContent = p + "%";
+    if(p<30){ document.getElementById( threatBig ).textContent="SAFE"; document.getElementById( threatTxt ).textContent="LEVEL 1 - SAFE"; }
+    else if(p<60){ document.getElementById( threatBig ).textContent="WARNING"; document.getElementById( threatTxt ).textContent="LEVEL 3 - EUCLID"; }
+    else { document.getElementById( threatBig ).textContent="KETER"; document.getElementById( threatTxt ).textContent="LEVEL 5 - KETER"; }
+    if(p==10) term.textContent += "\n> Bypassing firewall... [FAKE]";
+    if(p==50) term.textContent += "\n> Analyzing... [FAKE]";
+  },220);
+}
+
+function resetSim(){
+  clearInterval(myInterval); clearInterval(myCount);
+  document.getElementById( prog ).style.width = "0%";
+  document.getElementById( pct ).textContent = "0%";
+  document.getElementById( countdown ).textContent = "05:00";
+  document.getElementById( threatBig ).textContent = "SAFE";
+  document.getElementById( threatTxt ).textContent = "LEVEL 1 - SAFE";
+  document.getElementById( p1 ).textContent = "*****";
+  document.getElementById( p2 ).textContent = "*****";
+  document.getElementById( passTxt ).textContent = "LOCKED";
+  document.getElementById( term ).textContent = "RESET DONE - دوس START تاني";
+  alert("RESET اتعمل");
+}
+</script>
+</body>
+</html>
